@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import { View, Platform } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import Home from './HomeComponent';
 import { Icon } from 'react-native-elements';
 import About from "./AboutComponent";
+import Menu from './MenuComponent';
 import Contact from "./ContactComponent";
 
 const HomeNavigator = createStackNavigator({
