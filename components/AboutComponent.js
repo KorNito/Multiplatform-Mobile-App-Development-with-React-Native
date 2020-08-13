@@ -33,7 +33,7 @@ function renderLeaderItem({ item, index }) {
       subtitle={item.description}
       hideChevron={true}
       roundAvatar
-      avatar={require("./images/alberto.png")}
+      avatar={item.image}
       subtitleNumberOfLines={10}
     />
   );
