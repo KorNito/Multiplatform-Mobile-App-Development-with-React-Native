@@ -2,12 +2,19 @@
 import React, { Component } from "react";
 import { Text, ScrollView, FlatList } from "react-native";
 import { Card, ListItem } from "react-native-elements";
-import { LEADERS } from "../shared/leaders";
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+  return {
+    leaders: state.leaders
+  }
+}
 
 function History() {
   return (
     <Card title="Our History">
-      <Text>
+      <Text style={{margin: 10}}>
         Started in 2010, Ristorante con Fusion quickly established itself as a
         culinary icon par excellence in Hong Kong. With its unique brand of
         world fusion cuisine that can be found nowhere else, it enjoys patronage
@@ -15,8 +22,7 @@ function History() {
         three-star Michelin chefs in the world, you never know what will arrive
         on your plate the next time you visit us.
       </Text>
-      <Text> </Text>
-      <Text>
+      <Text style={{margin: 10}}>
         The restaurant traces its humble beginnings to The Frying Pan, a
         successful chain started by our CEO, Mr. Peter Pan, that featured for
         the first time the world's best cuisines in a pan.
@@ -25,52 +31,41 @@ function History() {
   );
 }
 
-function renderLeaderItem({ item, index }) {
-  return (
-    <ListItem
-      key={index}
-      title={item.name}
-      subtitle={item.description}
-      hideChevron={true}
-      roundAvatar
-      avatar={item.image}
-      subtitleNumberOfLines={10}
-    />
-  );
-}
-
-function Leaders({ leaders }) {
-  return (
-    <Card title="Corporate Leadership">
-      <FlatList
-        data={leaders}
-        renderItem={renderLeaderItem}
-        keyExtractor={item => item.id.toString()}
-      />
-    </Card>
-  );
-}
-
 class About extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      leaders: LEADERS
-    };
-  }
 
   static navigationOptions = {
     title: "About Us"
   };
 
   render() {
+    const { params } = this.props.navigation.state;
+    const renderLeader = ({item, index}) => {
+      return (
+        <ListItem
+          roundAvatar
+          key={index}
+          title={item.name}
+          subtitle={item.description}
+          subtitleNumberOfLines={15}
+          hideChevron={true}
+          leftAvatar={{source: {uri: baseUrl + item.image }}}
+        />
+      )
+    }
+
     return (
       <ScrollView>
         <History />
-        <Leaders leaders={this.state.leaders} />
+        <Card title="Corporate Leadership">
+        <FlatList
+          data={this.props.leaders.leaders}
+          renderItem={renderLeader}
+          keyExtractor={item => item.id.toString()}
+        />
+        </Card>
       </ScrollView>
     );
   }
 }
 
-export default About;
+export default connect(mapStateToProps)(About);
