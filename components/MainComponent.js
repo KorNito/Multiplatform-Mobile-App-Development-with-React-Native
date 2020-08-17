@@ -156,7 +156,7 @@ const MainNavigator = createDrawerNavigator({
         )
       }
     },
-  "About Us": 
+  AboutUs: 
     { screen: AboutNavigator,
       navigationOptions: {
         title: "About Us",
@@ -184,7 +184,7 @@ const MainNavigator = createDrawerNavigator({
         )
       }, 
     },
-  "Contact Us": 
+  ContactUs: 
     { screen: ContactNavigator,
       navigationOptions: {
         title: "Contact Us",
@@ -199,20 +199,21 @@ const MainNavigator = createDrawerNavigator({
       }, 
     },
     Reservation:
-      { screen: ReservationNavigator,
+    {
+        screen: ReservationNavigator,
         navigationOptions: {
-          title: 'Reserve Table',
-          drawerLabel: 'Reserve Table',
-          drawerIcon: ({ tintColor, focused }) => (
-            <Icon
-              name='cutlery'
-              type='font-awesome'            
-              size={24}
-              iconStyle={{ color: tintColor }}
-            />
-          ),
+            title: 'Reserve Table',
+            drawerLabel: 'Reserve Table',
+            drawerIcon: ({ tintColor, focused }) => (
+                <Icon
+                    name='cutlery'
+                    type='font-awesome'
+                    size={24}
+                    iconStyle={{ color: tintColor }}
+                />
+            ),
         }
-      }
+    }
 }, {
   drawerBackgroundColor: '#D1C4E9',
   contentComponent: CustomDrawerContentComponent

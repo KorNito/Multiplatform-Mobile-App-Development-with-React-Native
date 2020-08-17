@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Picker, Switch, Button, Modal, ScrollView } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Modal } from 'react-native';
 import { Card } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker'
 
@@ -37,7 +37,7 @@ class Reservation extends Component {
             showModal: false
         });
     }
-    
+
     render() {
         return(
             <ScrollView>
@@ -60,7 +60,7 @@ class Reservation extends Component {
                 <Switch
                     style={styles.formItem}
                     value={this.state.smoking}
-                    onTintColor='#512DA8'
+                    trackColor='#512DA8'
                     onValueChange={(value) => this.setState({smoking: value})}>
                 </Switch>
                 </View>
@@ -85,6 +85,7 @@ class Reservation extends Component {
                     dateInput: {
                         marginLeft: 36
                     }
+                    // ... You can check the source to find the other keys. 
                     }}
                     onDateChange={(date) => {this.setState({date: date})}}
                 />
@@ -106,11 +107,12 @@ class Reservation extends Component {
                         <Text style = {styles.modalText}>Number of Guests: {this.state.guests}</Text>
                         <Text style = {styles.modalText}>Smoking?: {this.state.smoking ? 'Yes' : 'No'}</Text>
                         <Text style = {styles.modalText}>Date and Time: {this.state.date}</Text>
+                        
                         <Button 
                             onPress = {() =>{this.toggleModal(); this.resetForm();}}
                             color="#512DA8"
                             title="Close" 
-                        />
+                            />
                     </View>
                 </Modal>
             </ScrollView>
@@ -137,19 +139,19 @@ const styles = StyleSheet.create({
     modal: {
         justifyContent: 'center',
         margin: 20
-    },
-    modalTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        backgroundColor: '#512DA8',
-        textAlign: 'center',
-        color: 'white',
-        marginBottom: 20
-    },
-    modalText: {
-        fontSize: 18,
-        margin: 10
-    }
+     },
+     modalTitle: {
+         fontSize: 24,
+         fontWeight: 'bold',
+         backgroundColor: '#512DA8',
+         textAlign: 'center',
+         color: 'white',
+         marginBottom: 20
+     },
+     modalText: {
+         fontSize: 18,
+         margin: 10
+     }
 });
 
 export default Reservation;
