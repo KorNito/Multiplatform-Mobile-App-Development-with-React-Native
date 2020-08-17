@@ -214,39 +214,36 @@ const MainNavigator = createDrawerNavigator({
             color={tintColor}
           />
         )
-      }, 
+      }
     },
-    Favorites:
-        { screen: FavoritesNavigator,
-          navigationOptions: {
-            title: 'My Favorites',
-            drawerLabel: 'My Favorites',
-            drawerIcon: ({ tintColor, focused }) => (
-              <Icon
-                name='heart'
-                type='font-awesome'            
-                size={24}
-                iconStyle={{ color: tintColor }}
-              />
-            ),
-          }
-        },
-    Reservation:
-    {
-        screen: ReservationNavigator,
-        navigationOptions: {
-            title: 'Reserve Table',
-            drawerLabel: 'Reserve Table',
-            drawerIcon: ({ tintColor, focused }) => (
-                <Icon
-                    name='cutlery'
-                    type='font-awesome'
-                    size={24}
-                    iconStyle={{ color: tintColor }}
-                />
-            ),
-        }
-    }
+    Favorites: 
+    { screen: FavoritesNavigator,
+      navigationOptions: {
+        title: 'My Favorites',
+        drawerLabel: 'My Favorites',
+        drawerIcon: ({ tintColor }) => (
+          <Icon name="heart"
+            type="font-awesome"
+            size={24}
+            color={tintColor}
+          />
+        )
+      }
+    },
+    Reservation: 
+    { screen: ReservationNavigator,
+      navigationOptions: {
+        title: 'Reserve Table',
+        drawerLabel: 'Reserve Table',
+        drawerIcon: ({ tintColor }) => (
+          <Icon name="cutlery"
+            type="font-awesome"
+            size={24}
+            color={tintColor}
+          />
+        )
+      }
+    },
 }, {
   drawerBackgroundColor: '#D1C4E9',
   contentComponent: CustomDrawerContentComponent
