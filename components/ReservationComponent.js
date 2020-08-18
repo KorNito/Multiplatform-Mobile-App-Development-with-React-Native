@@ -3,6 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Modal, Aler
 import { Card } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import * as Animatable from 'react-native-animatable';
+import { Permissions, Notifications } from 'expo';
 
 class Reservation extends Component {
 
@@ -31,13 +32,19 @@ class Reservation extends Component {
           `Number of guests: ${guests}\nSmoking? ${smoking ? 'Yes' : 'No'}\nDate and Time:${date}`,
           [
             {
-              text: 'Cancel',
-              style: 'cancel',
-              onPress: () => this.resetForm(),
+                text: 'Cancel',
+                style: 'cancel',
+                onPress: () => {
+                    console.log('Reservation Cancelled');
+                    this.resetForm();
+              }
             },
             {
-              text: 'OK',
-              onPress: () => this.confirmReservation(),
+                text: 'OK',
+                onPress: () =>{
+                    this.presentLocalNotification(this.state.date);
+                    this.confirmReservation();
+              } 
             },
           ],
           { cancelable: false },
@@ -47,6 +54,33 @@ class Reservation extends Component {
     resetForm() {
         this.setState(Reservation.defaultState());
     }
+
+    async obtainNotificationPermission() {
+        let permission = await Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS);
+        if (permission.status !== 'granted') {
+            permission = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
+            if (permission.status !== 'granted') {
+                Alert.alert('Permission not granted to show notifications');
+            }
+        }
+        return permission;
+    }
+    
+    async presentLocalNotification(date) {
+        await this.obtainNotificationPermission();
+        Notifications.presentLocalNotificationAsync({
+            title: 'Your Reservation',
+            body: 'Reservation for '+ date + ' requested',
+            ios: {
+                sound: true
+            },
+            android: {
+                sound: true,
+                vibrate: true,
+                color: '#512DA8'
+            }
+        });
+    }   
 
     render() {
         const todayDate = new Date().toISOString().split('T')[0];
